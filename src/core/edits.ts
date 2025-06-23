@@ -1,57 +1,23 @@
 type Splits = [string, string][];
 const letters = 'abcdefghijklmnopqrstuvwxyz';
 
-export const splits = (word: string) => {
-  const splitted: Splits = [];
+export const splits = (word: string): Splits => {
   if (word === '') {
     return [];
   }
-  for (let i = 0; i < word.length + 1; i += 1) {
-    splitted.push([word.slice(0, i), word.slice(i, word.length)]);
-  }
-  return splitted;
+  return Array.from({ length: word.length + 1 }, (_, i) => [word.slice(0, i), word.slice(i)]);
 };
 
-export const deletes = (splits: Splits) => {
-  const newSplits: string[] = [];
-  for (let i = 0; i < splits.length - 1; i += 1) {
-    newSplits.push(splits[i][0] + splits[i][1].slice(1, splits[i][1].length));
-  }
-  return newSplits;
-};
+export const deletes = (splits: Splits) =>
+  splits.flatMap(([L, R]) => (R.length > 0 ? [L + R.slice(1)] : []));
 
-export const transposes = (splits: Splits) => {
-  const newSplits: string[] = [];
-  for (let i = 0; i < splits.length; i += 1) {
-    if (splits[i][1].length <= 1) {
-      return newSplits;
-    }
-    newSplits.push(
-      splits[i][0] +
-        splits[i][1].charAt(1) +
-        splits[i][1].charAt(0) +
-        splits[i][1].slice(2, splits[i][1].length),
-    );
-  }
-  return newSplits;
-};
+export const transposes = (splits: Splits) =>
+  splits.flatMap(([L, R]) => (R.length > 1 ? [L + R[1] + R[0] + R.slice(2)] : []));
 
-export const replaces = (splits: Splits) => {
-  const newSplits: string[] = [];
-  for (let i = 0; i < splits.length; i += 1) {
-    for (let j = 0; j < letters.length; j += 1) {
-      newSplits.push(splits[i][0] + letters[j] + splits[i][1].slice(1, splits[i][1].length));
-    }
-  }
-  return newSplits;
-};
+export const replaces = (splits: Splits) =>
+  splits.flatMap(([L, R]) =>
+    R.length > 0 ? [...Array.from(letters, (c) => L + c + R.slice(1))] : [],
+  );
 
-export const inserts = (splits: Splits) => {
-  const newSplits: string[] = [];
-  for (let i = 0; i < splits.length; i += 1) {
-    for (let j = 0; j < letters.length; j += 1) {
-      newSplits.push(splits[i][0] + letters[j] + splits[i][1]);
-    }
-  }
-  return newSplits;
-};
+export const inserts = (splits: Splits) =>
+  splits.flatMap(([L, R]) => Array.from(letters, (c) => L + c + R));

@@ -47,7 +47,6 @@ describe('replaces', () => {
     const result = replaces(splits('cat'));
 
     const expected = ['aat', 'bat', 'dat', 'eat', /* ... */ 'cax', 'cay', 'caz'];
-
     expected.forEach((variant) => {
       expect(result).toContain(variant);
     });
