@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { deletes, inserts, replaces, splits, transposes } from '../../core/edits';
+import { deletes, edits1, edits2, inserts, replaces, splits, transposes } from '../../core/edits';
 
 describe('splits', () => {
   it('should return all possible (left, right) pairs of a word', () => {
@@ -72,5 +72,30 @@ describe('inserts', () => {
   it('should return empty array for empty string', () => {
     const result = inserts(splits(''));
     expect(result).toEqual([]);
+  });
+});
+
+describe('edit1', () => {
+  it('should return all known 1-edit variants for "cat"', () => {
+    const result = edits1('cat');
+
+    expect(result.has('bat')).toBe(true);
+    expect(result.has('at')).toBe(true);
+    expect(result.has('caat')).toBe(true);
+    expect(result.has('cta')).toBe(true);
+    expect(result.size).toBeGreaterThan(150);
+    expect(result.size).toBeLessThan(200);
+  });
+});
+
+describe('edit2', () => {
+  it('should return all known 1-edit variants for "cat"', () => {
+    const result = edits2('cat');
+
+    expect(result.has('chats')).toBe(true);
+    expect(result.has('t')).toBe(true);
+    expect(result.has('c')).toBe(true);
+    expect(result.size).toBeGreaterThan(14000);
+    expect(result.size).toBeLessThan(15000);
   });
 });

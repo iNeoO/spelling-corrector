@@ -1,9 +1,9 @@
-import { deletes, inserts, replaces, splits, transposes } from './core/edits';
+export * from './core/candidates';
+export * from './core/correction';
+export * from './core/edits';
+export * from './core/probability';
+export * from './core/word';
 
-const splitted = splits('anticonstitutionnellement');
-new Set([
-  ...deletes(splitted),
-  ...inserts(splitted),
-  ...transposes(splitted),
-  ...replaces(splitted),
-]);
+import { SpellChecker } from './core/spellChecker';
+
+export default SpellChecker;

@@ -21,3 +21,18 @@ export const replaces = (splits: Splits) =>
 
 export const inserts = (splits: Splits) =>
   splits.flatMap(([L, R]) => Array.from(letters, (c) => L + c + R));
+
+export const edits1 = (word: string) => {
+  const splitted = splits(word);
+  return new Set([
+    ...deletes(splitted),
+    ...inserts(splitted),
+    ...transposes(splitted),
+    ...replaces(splitted),
+  ]);
+};
+
+export const edits2 = (word: string) => {
+  const edits1Set = edits1(word);
+  return new Set(Array.from(edits1Set).flatMap((w) => Array.from(edits1(w))));
+};
