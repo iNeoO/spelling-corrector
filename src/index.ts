@@ -4,6 +4,6 @@ export * from './core/edits';
 export * from './core/probability';
 export * from './core/word';
 
-import { SpellChecker } from './core/spellChecker';
+import { SpellCorrector } from './core/spellCorrector';
 
-export default SpellChecker;
+export default SpellCorrector;

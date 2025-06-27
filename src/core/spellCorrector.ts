@@ -2,7 +2,7 @@ import { correction } from './correction';
 import { N } from './probability';
 import { buildWordFreqFromFile, buildWordFreqString } from './word';
 
-export class SpellChecker {
+export class SpellCorrector {
   private corpus: Map<string, number> | null;
   private total: number;
 

@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { SpellChecker } from '../../core/spellChecker';
+import { SpellCorrector } from '../../core/spellCorrector';
 
 const filePath = './src/tests/data/test-corpus.txt';
 
-describe('SpellChecker', () => {
-  let checker: SpellChecker;
+describe('SpellCorrector', () => {
+  let checker: SpellCorrector;
 
   beforeEach(() => {
-    checker = new SpellChecker();
+    checker = new SpellCorrector();
   });
 
   it('should throw if corpus not initialized', () => {
@@ -16,7 +16,7 @@ describe('SpellChecker', () => {
   });
 
   it('should load the corpus from file and correct known words', async () => {
-    const checker = new SpellChecker();
+    const checker = new SpellCorrector();
     await checker.addFileCorpus(filePath);
 
     // assuming "woman" appears once and "sherlock" as well in test-corpus.txt
