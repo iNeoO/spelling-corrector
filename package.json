@@ -2,16 +2,26 @@
   "name": "spelling-corrector",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "tsx src/index.ts",
-    "build": "tsc",
+    "build": "pnpm build:esm && pnpm build:cjs",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
     "start": "node dist/index.js",
     "lint": "biome check",
     "lint:staged": "git diff --cached --name-only --diff-filter=ACM | grep -E '\\.(js|ts|tsx|jsx|json|md)$' | xargs -r pnpm biome check",
 
     "test": "vitest",
     "coverage": "vitest run --coverage"
+  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
   },
   "keywords": [],
   "author": "",
